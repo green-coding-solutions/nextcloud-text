@@ -34,8 +34,11 @@ def create_user(playwright: Playwright, browser_name: str, username: str, passwo
         page.click("button[aria-label='Settings menu']")
         page.click("#core_users")
 
-        dialog = page.get_by_role("dialog")
-        dialog.get_by_label("Close").click()
+        try:
+            dialog = page.get_by_role("dialog")
+            dialog.get_by_label("Close").click(timeout=5000)
+        except:
+            pass
 
         log_note('Deleting docs user')
         row = page.locator('tr[data-cy-user-row="docs_dude"]')
